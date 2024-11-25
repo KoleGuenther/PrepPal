@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="{% static 'core/styles.css' %}">
+        <title>My Recipes</title>
+    </head>
+    <body>
+        {% include 'core/navbar.html' %}
+        {% if user.is_authenticated %}
+            <div class="main-content">
+                <h1>My Recipes</h1>
+
+                <h2>Recipes I Created</h2>
+                <ul>
+                    {% for recipe in created_recipes %}
+                        <li>
+                            <a href="{% url 'view_recipe' recipe.id %}">{{ recipe.name }}</a>
+                        </li>
+                        - {{ recipe.short_desc }}
+                    {% empty %}
+                        <p>You haven't created any recipes yet!</p>
+                    {% endfor %}
+                </ul>
+                
+                <h2>Recipes I Saved</h2>
+                <ul>
+                    {% for saved in saved_recipes %}
+                        <li>
+                            <a href="{% url 'view_recipe' saved.recipe.id %}">{{ saved.recipe.name }}</a>
+                        </li>
+                        - {{ saved.recipe.short_desc }}
+                    {% empty %}
+                        <p>You haven't saved any recipes yet!</p>
+                    {% endfor %}
+                </ul>
+                
+            </div>
+        {% else %}
+            <p>You cannot access this page without being logged in.</p>
+        {% endif %}
+    </body>
+</html>

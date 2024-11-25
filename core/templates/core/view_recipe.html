@@ -1,0 +1,34 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="{% static 'core/styles.css' %}">
+        <title>Create Recipe</title>
+    </head>
+    <body>
+        {% include 'core/navbar.html' %}
+        <div class="main-content">
+
+            <h1>{{ recipe.name }}</h1>
+            <p><strong>Ingredients:</strong></p>
+            <p>{{ recipe.ingredients }}</p>
+            <p><strong>Instructions:</strong></p>
+            <p>{{ recipe.instructions }}</p>
+            <p><strong>Tags:</strong> {{ recipe.tags }}</p>
+
+            {% if user.is_authenticated %}
+            <form action="{% url 'toggle_save_recipe' recipe.id %}" method="post" style="display:inline;">
+                {% csrf_token %}
+                {% if is_saved %}
+                    <button type="submit">Unsave</button>
+                {% else %}
+                    <button type="submit">Save</button>
+                {% endif %} |
+            </form>
+            
+            <a href="{% url 'update_recipe' recipe.pk %}" class="edit">Edit</a> | 
+            <a href="{% url 'delete_recipe' recipe.pk %}" class="delete">Delete</a>
+            {% endif %}
+        </div>
+    </body>
+</html>

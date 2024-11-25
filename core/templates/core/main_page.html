@@ -1,0 +1,23 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="{% static 'core/styles.css' %}">
+        <title>PrepPal Home</title>
+    </head>
+    <body>
+        {% include 'core/navbar.html' %}
+        <div class="main-content">
+        <h1>Welcome to PrepPal!</h1>
+        <p>The one-stop solution for efficient meal planning and prepping, designed with college students in mind. Make delicious meals even with limited appliances or diet restrictions, and discover new ways to simplify your cooking plans. We have a focus on making meal planning as easy as possible, no matter who you are. Whether busy, on a budget, or have a limited cooking situation, we've got your back at PrepPal!</p>
+        <p>With PrepPal, you can create, find, and save recipes so that you can keep track of meals you love cooking, and have them all in one place when you come back!</p>
+        
+        {% if user.is_authenticated %}
+        <p>Thanks for being a Prepper!</p>
+            {% else %}
+            <p>Want to become a Prepper?</p>
+            <a href="{% url 'register' %}">Sign Up Now!</a>
+            {% endif %}
+        </div>
+    </body>
+</html>

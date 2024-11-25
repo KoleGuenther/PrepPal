@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{% static 'core/styles.css' %}">
+        <title>Featured Recipes</title>
+    </head>
+    <body>
+        {% include 'core/navbar.html' %}
+        <div class="main-content">
+            <h1>Featured Recipes</h1>
+            <div class="recipe-grid">
+                <div class="featured-recipes">
+                    {% for featured in featured_recipes %}
+                    <div class="recipe-card">
+                        {% if featured.recipe.image %}
+                            <img src="{{ featured.recipe.image.url }}" alt="{{ featured.recipe.name }}">
+                        {% else %}
+                            <p>No Image Found</p>
+                        {% endif %}
+                        <h2>{{ featured.recipe.name }}</h2>
+                        <p>{{ featured.recipe.short_desc }}</p>
+                        <a href="{% url 'view_recipe' featured.recipe.pk %}">View Recipe</a>
+                    </div>
+                    <br>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

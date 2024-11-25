@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="{% static 'core/login.css' %}">
+        <title>PrepPal Login</title>
+    </head>
+    <body>
+        <div class="login-container">
+            <div class="login-box">
+                <h1>PrepPal Login</h1>
+                {% if messages %}
+                    {% for message in messages %}
+                        <p style="color: red;">{{ message }}</p>
+                    {% endfor %}
+                {% endif %}
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="login-button">Login</button>
+                </form>
+                <a href="{% url 'register' %}">Don't have an account? Register</a>
+                <br>
+                <a href="{% url 'main_page' %}">Want to go back? Click Here</a>
+            </div>
+        </div>
+    </body>
+</html>

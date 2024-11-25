@@ -1,0 +1,43 @@
+<nav class="navbar">
+    <div class="navbar-left">
+        <a href="{% url 'main_page' %}">PrepPal</a>
+        <a href="{% url 'recipe_list' %}">All Recipes</a>
+        {% if user.is_authenticated %}
+            <a href="{% url 'my_recipes' %}">My Recipes</a>
+            <a href="{% url 'featured_recipes' %}">Featuerd Recipes</a>
+        {% endif %}
+    </div>
+    <div class="navbar-right">
+        {% if user.is_authenticated %}
+            <div class="dropdown">
+                <button class="dropbtn" onclick="toggleDropdown()">
+                    {{ user.username }} <span class="arrow">&#9662;</span>
+                </button>
+                <div class="dropdown-content" id="dropdownMenu">
+                    <form action="{% url 'logout' %}" method="post" class="logout-form">
+                        {% csrf_token %}
+                        <button type="submit">Logout</button>
+                    </form>
+                </div>
+            </div>
+        {% else %}
+            <a href="{% url 'login' %}">Login</a>
+            <a href="{% url 'register' %}">Register</a>
+        {% endif %}
+    </div>
+</nav>
+<script>
+    function toggleDropdown() {
+        var dropdownMenu = document.getElementById("dropdownMenu");
+        dropdownMenu.style.display = dropdownMenu.style.display === "block" ? "none" : "block";
+    }                                                                                               
+
+    window.onclick = function(event) {
+        if (!event.target.matches('.dropbtn')) {
+            var dropdownMenu = document.getElementById("dropdownMenu");
+            if (dropdownMenu && dropdownMenu.style.display === "block") {
+                dropdownMenu.style.display = "none";
+            }
+        }
+    };
+</script>
